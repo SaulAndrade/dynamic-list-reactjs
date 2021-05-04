@@ -6,6 +6,8 @@ import classes from './Questions.module.css'
 
 const Questions = (props) => {
 
+  const [fim, setFim] = useState(false)
+
   const [q4, setQ4] = useState({
     id: 'q4',
     title: 'Última do exemplo',
@@ -158,6 +160,9 @@ const Questions = (props) => {
 
   //função que executa toda vez que um radioButton mudar
   const updateQuestion = (currentQuestionId, selectedValue, nextQuestionId, checked) => {
+    //cheguei ao fim do formulário?
+    let fim = (!nextQuestionId)?true:false
+    
     //atualizando o valor da questao para o selecionado
     const currentQuestion = questions.filter( q => q.id === currentQuestionId )[0]
 
@@ -178,6 +183,7 @@ const Questions = (props) => {
                                 value: null,
                                 next: false
                               }
+        fim = false //se estou desmarcando, com verteza não é o fim
     }
 
     //efetivando as mudanças no state
@@ -199,10 +205,13 @@ const Questions = (props) => {
                               value: null,
                               visible: false 
                             }
+        fim = false //se estou desmarcando, com verteza não é o fim
       }
       //efetivando as mudanças no state                          
       nextQuestion.setter(nextQuestionState)
     }
+
+    setFim(fim)
   }
 
   //mesma coisa aqui, vai mapear [q1, q2 .. qn] em [<Question q1 />, <Question q2 /> ... <Question qn />]
@@ -217,9 +226,15 @@ const Questions = (props) => {
             />
   })
 
+  let fimEl = null
+  if(fim) {
+    fimEl = <h1>Fim das Perguntas</h1>
+  }
+
   return (
       <Form>
           {mappedQuestions}
+          {fimEl}
       </Form>
   );
 };
