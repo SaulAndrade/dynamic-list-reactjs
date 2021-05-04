@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.DescBox {
+  display: flex;
+  justify-content: center;
+  
+}
+.Question {
+  margin: 32px;
+  padding: 16px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
